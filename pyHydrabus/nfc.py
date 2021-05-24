@@ -38,6 +38,9 @@ class NFC(Protocol):
 
     MODE_ISO_14443A = 0
     MODE_ISO_15693 = 1
+    MODE_ISO_14443B = 2
+    MODE_MANUAL = 3
+
 
     def __init__(self, port=""):
         self._rf = 0
@@ -51,7 +54,8 @@ class NFC(Protocol):
     @mode.setter
     def mode(self, value):
         CMD = 0b00000110
-        CMD |= value
+        # CMD |= value
+        CMD += value
         self._hydrabus.write(CMD.to_bytes(1, byteorder="big"))
         self._mode = value
 
